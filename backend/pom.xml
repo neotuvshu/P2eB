@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Adjust Spring Boot version as needed -->
+        <spring-boot.version>2.7.6</spring-boot.version>
     </properties>
 
     <dependencies>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>2.7.4</version> <!-- or use version 3.0.8 as recommended -->
+            <version>2.7.4</version>
         </dependency>
 
         <!-- JUnit Jupiter API for unit testing with JUnit 5 -->
@@ -43,6 +43,13 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.8.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Spring Boot Starter Data JPA for working with databases -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- Spring Boot Test Starter for integration testing with Spring Boot -->
@@ -56,7 +63,29 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin for packaging and running the Spring Boot application -->
+            <!-- Plugin for UTF-8 encoding -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Compiler Plugin for Java 1.8 compatibility -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Spring Boot Maven Plugin for packaging and running Spring Boot apps -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -64,5 +93,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

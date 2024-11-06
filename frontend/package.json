@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.3.3",
     "frontend": "file:",
     "mysql2": "^3.11.4",
     "next": "15.0.2",
