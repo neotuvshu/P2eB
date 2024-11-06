@@ -1,12 +1,19 @@
-// Шаардлагатай модулиудыг импортлох
-const mysql = require('mysql2/promise'); // async/await ашиглахын тулд mysql2 хэрэгтэй
+/**
+ * Author: Enkh
+ * Module: Login Creation
+ * Description: Implements the login functionality for the system, including user authentication and session handling.
+ * Date: November 6, 2024
+ */
+
+// pages/login.js
+
+const mysql = require('mysql2/promise');
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
         try {
-            // Орчны хувьсагч ашиглан холболт үүсгэх
             const connection = await mysql.createConnection({
                 host: process.env.DB_HOST,
                 port: process.env.DB_PORT,
@@ -15,23 +22,21 @@ export default async function handler(req, res) {
                 database: process.env.DB_NAME,
             });
 
-            // Хэрэглэгчийг шалгах асуулга
             const [rows] = await connection.execute(
                 'SELECT USER_PWD, USE_YN FROM tb_sys_user WHERE USER_ID = ?',
                 [username]
             );
 
-            // Дебаг хийхэд зориулж өгөгдлийг лог гаргах
+
             console.log("Асуулгын үр дүн:", rows);
 
-            // Холболтыг хаах
             await connection.end();
 
-            // Хэрэглэгч байгааг болон идэвхтэй эсэхийг шалгах
+
             if (rows.length > 0 && rows[0].USE_YN === 'y') {
                 const storedPassword = rows[0].USER_PWD;
                 
-                // Нууц үгийг тохирч буй эсэхийг шалгах
+
                 if (password === storedPassword) {
                     return res.status(200).json({ message: 'Амжилттай нэвтэрлээ' });
                 } else {
