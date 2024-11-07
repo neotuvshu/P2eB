@@ -9,3 +9,4 @@ D:\Works2024\09_P2eB\backend\src\main\java\com\p2eb\backend\service\JwtService.j
 D:\Works2024\09_P2eB\backend\src\main\java\com\p2eb\backend\dto\LoginRequest.java
 D:\Works2024\09_P2eB\backend\src\main\java\com\p2eb\backend\model\User.java
 D:\Works2024\09_P2eB\backend\src\main\java\com\p2eb\backend\service\CustomUserDetailsService.java
+D:\Works2024\09_P2eB\backend\src\main\java\com\p2eb\backend\config\InitialUserSetup.java

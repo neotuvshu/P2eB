@@ -1,0 +1,12 @@
+com\p2eb\backend\config\WebConfig.class
+com\p2eb\backend\service\CustomUserDetailsService.class
+com\p2eb\backend\repository\UserRepository.class
+com\p2eb\backend\jwt\JwtAuthenticationFilter.class
+com\p2eb\backend\dto\LoginRequest.class
+com\p2eb\backend\service\JwtService.class
+com\p2eb\backend\config\InitialUserSetup.class
+com\p2eb\backend\config\SecurityConfig.class
+com\p2eb\backend\controller\AuthController.class
+com\p2eb\backend\P2eBApplication.class
+com\p2eb\backend\jwt\JwtUtil.class
+com\p2eb\backend\model\User.class

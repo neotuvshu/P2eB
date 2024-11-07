@@ -21,8 +21,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Хэрэглэгч олдсонгүй");
         }
-        return org.springframework.security.core.userdetails.User
-            .withUsername(user.getUsername())
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(user.getUsername())
             .password(user.getPassword())
             .roles(user.getRole())
             .build();
