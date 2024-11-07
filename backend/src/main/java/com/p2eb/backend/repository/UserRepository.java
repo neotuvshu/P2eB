@@ -1,9 +1,9 @@
+// UserRepository.java
 package com.p2eb.backend.repository;
 
-import com.p2eb.backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import com.p2eb.backend.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 }

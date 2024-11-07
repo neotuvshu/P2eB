@@ -1,36 +1,43 @@
 package com.p2eb.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus; 
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.p2eb.backend.jwt.JwtUtil;
 import com.p2eb.backend.dto.LoginRequest;
-import com.p2eb.backend.dto.LoginResponse;
-import com.p2eb.backend.service.UserService;
-import com.p2eb.backend.util.JwtUtil;
 
-@RestController //
-@RequestMapping("/api")
+@RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    private UserService userService;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-        boolean isAuthenticated = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
-    
-        if (isAuthenticated) {
-            String token = JwtUtil.generateToken(loginRequest.getUsername());
-            LoginResponse response = new LoginResponse(token, "Амжилттай нэвтэрлээ!");
-            return ResponseEntity.ok(response);
-        } else {
-            LoginResponse response = new LoginResponse(null, "Нэвтрэх нэр эсвэл нууц үг буруу байна");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+    public String login(@RequestBody LoginRequest loginRequest) {
+        // Нэвтрэх нэр болон нууц үгийг авна
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+
+        // Хэрэглэгчийг баталгаажуулах
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(username, password)
+        );
+
+        // Нэвтэрсэн хэрэглэгчийн мэдээллийг авна
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // JWT токен үүсгэх
+        return jwtUtil.generateToken(userDetails.getUsername());
     }
 }
