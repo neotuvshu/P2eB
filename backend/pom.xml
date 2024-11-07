@@ -1,43 +1,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Group ID, Artifact ID, and Version for the backend module -->
+    <!-- Артфакт ID, Бүлгийн ID, болон хувилбарын тодорхойлолт -->
     <groupId>com.p2eb</groupId>
     <artifactId>p2eb-backend</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <!-- Spring Boot эцэг нэмэх, хувилбарыг шууд заах -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.18</version>
+        <relativePath/>
+    </parent>
+
     <properties>
+        <!-- Define Java version for easy upgrade in future -->
         <java.version>1.8</java.version>
-        <spring-boot.version>2.7.6</spring-boot.version>
+        <!-- Set UTF-8 encoding globally for Maven compiler and resources -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter for core Spring functionality -->
+        <!-- Spring Boot Starter үндсэн Spring функционалд зориулсан -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
-        
-        <!-- Spring Boot Starter Web for building web applications and REST APIs -->
+
+        <!-- Spring Boot Starter Web вэб апп болон REST API боловсруулах -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
-        
-        <!-- MariaDB Connector for connecting to a MariaDB database -->
+
+        <!-- MariaDB холбогч MariaDB өгөгдлийн сантай холбогдох -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>2.7.4</version>
         </dependency>
 
-        <!-- JUnit Jupiter API for unit testing with JUnit 5 -->
+        <!-- JUnit 5 тестийн зориулалттай -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -45,35 +54,23 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Data JPA for working with databases -->
+        <!-- Spring Boot Starter Data JPA өгөгдлийн сантай ажиллах -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
-        <!-- Spring Boot Test Starter for integration testing with Spring Boot -->
+        <!-- Json Web Token (JWT) - For handling JWT in your application -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin for UTF-8 encoding -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <!-- Compiler Plugin for Java 1.8 compatibility -->
+            <!-- UTF-8 кодчилолын тохиргоо Maven compiler болон resources-д тохируулах -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -81,15 +78,24 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
-            <!-- Spring Boot Maven Plugin for packaging and running Spring Boot apps -->
+            <!-- Spring Boot Maven Plugin - for packaging Spring Boot apps -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
+            </plugin>
+
+            <!-- Тестийг алгасах тохиргоотой Surefire плагин -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>

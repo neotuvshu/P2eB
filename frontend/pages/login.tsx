@@ -14,7 +14,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const response = await fetch('/api/login', {
             method: 'POST',
@@ -22,7 +22,12 @@ function Login() {
             body: JSON.stringify({ username, password }),
         });
         const data = await response.json();
-        setMessage(data.message);
+        if (response.ok){
+            localStorage.setItem('token', data.token);
+            setMessage("Амжилттай нэвтэрлээ!");
+        } else {
+            setMessage(data.message);
+        }
     };
 
     return (
