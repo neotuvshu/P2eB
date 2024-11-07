@@ -23,7 +23,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         boolean isAuthenticated = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
-
+    
         if (isAuthenticated) {
             String token = JwtUtil.generateToken(loginRequest.getUsername());
             LoginResponse response = new LoginResponse(token, "Амжилттай нэвтэрлээ!");
