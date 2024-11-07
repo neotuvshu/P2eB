@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.p2eb.backend.dto.LoginRequest;
+import com.p2eb.backend.dto.LoginResponse;
 import com.p2eb.backend.service.UserService;
 import com.p2eb.backend.util.JwtUtil;
 
-@RestController
+@RestController //
 @RequestMapping("/api")
 public class AuthController {
 
@@ -20,16 +21,16 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         boolean isAuthenticated = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
 
         if (isAuthenticated) {
             String token = JwtUtil.generateToken(loginRequest.getUsername());
-            return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
+            LoginResponse response = new LoginResponse(token, "Амжилттай нэвтэрлээ!");
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("{\"message\":\"Нэвтрэх нэр эсвэл нууц үг буруу байна\"}");
-
+            LoginResponse response = new LoginResponse(null, "Нэвтрэх нэр эсвэл нууц үг буруу байна");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 }

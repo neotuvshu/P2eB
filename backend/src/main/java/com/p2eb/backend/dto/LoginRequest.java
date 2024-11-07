@@ -4,20 +4,24 @@ public class LoginRequest {
     private String username;
     private String password;
 
-    //Getters and setters
-    public String getUsername() {
+    //Default Constructor 
+    public LoginRequest(){}
+
+    //Getters and Setters
+    public String getUsername(){
         return username;
     }
 
-    public void setUsername (String username) {
+    public void setUsername(String username){
         this.username = username;
+
     }
 
-    public String getPassword() {
+    public String getPassword(){
         return password;
     }
 
-    public void setPassword (String password) {
+    public void setPassword(String password){
         this.password = password;
     }
 }
