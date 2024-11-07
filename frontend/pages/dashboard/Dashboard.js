@@ -1,16 +1,39 @@
 //frontend/pages/dashboard/Dashboard.js
 
-import React from 'react';
-import { Admin, Resource } from 'react-admin';
-import dataProvider from './dataProvider';
-import DashboardLayout from './DashboardLayout';
+import React, { useEffect, useState } from 'react';
 
-const Dashboard = () => (
-    <Admin layout={DashboardLayout} dataProvider={dataProvider}>
-        <Resource name="system-management" list={() => <div>System Management Page</div>} />
-        <Resource name="data-management" list={() => <div>Data Management Page</div>} />
-        {/* Other Catergories */}
-    </Admin>
-);
+const Dashboard = () => {
+    const [data, setData] = useState(null);
+
+    // Хамгаалагдсан өгөгдлийг авах функц
+    const fetchData = async () => {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('/api/protected-endpoint', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+        setData(data); // Өгөгдлийг бүртгэх эсвэл хадгалах
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return (
+        <div>
+            <h1>Dashboard</h1>
+            {data ? (
+                <div>{JSON.stringify(data)}</div>
+            ) : (
+                <p>Өгөгдлийг ачааллаж байна...</p>
+            )}
+        </div>
+    );
+};
 
 export default Dashboard;
