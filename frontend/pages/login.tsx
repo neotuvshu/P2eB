@@ -6,34 +6,44 @@
  */
 
 // pages/login.tsx
-
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-function Login() {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        });
-        const data = await response.json();
-        if (response.ok){
-            localStorage.setItem('token', data.token);
-            setMessage("Амжилттай нэвтэрлээ!");
-        } else {
-            setMessage(data.message);
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                // Store the token in localStorage
+                localStorage.setItem('token', data.token);
+                
+                // Redirect to dashboard upon successful login
+                router.push('/dashboard');
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Something went wrong, please try again.');
         }
     };
 
     return (
         <div>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
                 <input
                     type="text"
                     placeholder="Username"
@@ -48,9 +58,8 @@ function Login() {
                 />
                 <button type="submit">Login</button>
             </form>
-            <p>{message}</p>
         </div>
     );
-}
+};
 
 export default Login;

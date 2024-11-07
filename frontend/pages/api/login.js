@@ -1,13 +1,17 @@
 /**
  * Author: Enkh
  * Module: Login Creation
- * Description: Implements the login functionality for the system, including user authentication and session handling.
+ * Description: Implements the login functionality for the system, including user authentication and JWT handling.
  * Date: November 6, 2024
  */
 
-// pages/login.js
+// pages/api/login.js
 
 const mysql = require('mysql2/promise');
+const jwt = require('jsonwebtoken');
+
+// Secret key for JWT (Store this securely, e.g., in environment variables)
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
@@ -27,18 +31,18 @@ export default async function handler(req, res) {
                 [username]
             );
 
-
             console.log("Асуулгын үр дүн:", rows);
 
             await connection.end();
 
-
             if (rows.length > 0 && rows[0].USE_YN === 'y') {
                 const storedPassword = rows[0].USER_PWD;
-                
 
+                // Check if the password is correct
                 if (password === storedPassword) {
-                    return res.status(200).json({ message: 'Амжилттай нэвтэрлээ' });
+                    // Generate JWT token
+                    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
+                    return res.status(200).json({ message: 'Амжилттай нэвтэрлээ', token });
                 } else {
                     return res.status(401).json({ message: 'Нэвтрэх нэр эсвэл нууц үг буруу байна' });
                 }
