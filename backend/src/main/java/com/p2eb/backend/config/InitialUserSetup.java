@@ -14,14 +14,14 @@ public class InitialUserSetup implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;  // BCryptPasswordEncoder-г автоматаар холбох
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
         if (userRepository.findByUsername("admin") == null) {
             User adminUser = new User();
             adminUser.setUsername("admin");
-            adminUser.setPassword(passwordEncoder.encode("adminpass"));  // Энд кодлогчийг ашиглана
+            adminUser.setPassword(passwordEncoder.encode("adminpass"));
             adminUser.setRole("ROLE_ADMIN");
             userRepository.save(adminUser);
         }

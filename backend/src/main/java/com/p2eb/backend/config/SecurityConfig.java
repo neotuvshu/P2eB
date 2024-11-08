@@ -56,6 +56,7 @@ public class SecurityConfig {
         return http.getSharedObject(AuthenticationManager.class);
     }
 
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
