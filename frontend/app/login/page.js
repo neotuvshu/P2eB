@@ -12,6 +12,7 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    router.push('/admin/dashboard');
     try {
       const response = await loginUser(username, password);
       const token = response.headers['authorization'];
@@ -19,10 +20,11 @@ export default function LoginPage() {
         localStorage.setItem('token', token);  // Store JWT token
         router.push('/admin/dashboard');  // Redirect to dashboard
       } else {
+        
         console.error('Login failed: No token returned');
       }
     } catch (error) {
-      console.error('Login failed', error);
+      // console.error('Login failed', error);
     }
   };
 

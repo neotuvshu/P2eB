@@ -18,7 +18,8 @@
 }
 
 .inputField {
-  margin: 10px 0;
+  
+  margin: 10px 10px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #00bfff;
@@ -33,6 +34,7 @@
 }
 
 .loginButton {
+  margin: 10px 10px;
   margin-top: 15px;
   padding: 10px;
   background-color: #00bfff;

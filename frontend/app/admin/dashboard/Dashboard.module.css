@@ -13,15 +13,15 @@
   .menuBar {
     display: flex;
     justify-content: space-around;
-    padding: 10px;
+    padding: 15px;
     width: 100%;
     background-color: #1a1a1a;
     border-bottom: 1px solid #00bfff;
   }
-  
   .menuItem {
     color: #00bfff;
     cursor: pointer;
+    position: relative;
   }
   
   .mainContent {
@@ -30,8 +30,34 @@
     align-items: center;
     flex-grow: 1;
     padding: 20px;
-    width: 80%;
-    border: 1px solid #00bfff;
+    width: 100%;
+    /* border: 1px solid #00bfff; */
     border-radius: 8px;
   }
+  
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1a1a1a;
+    border: 1px solid #00bfff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    width: 160px;
+    font-size: smaller;
+  }
+  
+  .dropdownItem {
+    color: #00bfff;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #333;
+  }
+
   
