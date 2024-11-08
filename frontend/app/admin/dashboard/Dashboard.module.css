@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #000;
+    background-color: #0D1117;
     color: #fff;
   }
   
@@ -15,10 +15,12 @@
     justify-content: space-around;
     padding: 15px;
     width: 100%;
-    background-color: #1a1a1a;
+    height: 10%;
+    background-color: #010409;
     border-bottom: 1px solid #00bfff;
   }
   .menuItem {
+    margin: auto;
     color: #00bfff;
     cursor: pointer;
     position: relative;
@@ -40,7 +42,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #1a1a1a;
+    background-color: #151b23;
     border: 1px solid #00bfff;
     border-radius: 4px;
     display: flex;

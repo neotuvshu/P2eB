@@ -17,7 +17,6 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody UpdateUserRequest updateUserRequest) {
         return userService.updateUser(id, updateUserRequest);

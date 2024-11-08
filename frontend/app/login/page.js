@@ -33,7 +33,7 @@ export default function LoginPage() {
       <form onSubmit={handleLogin} className={styles.loginForm}>
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Id"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className={styles.inputField}

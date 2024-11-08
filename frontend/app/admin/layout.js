@@ -64,10 +64,11 @@ export default function AdminLayout({ children }) {
     <div className={styles.dashboardContainer}>
       <div className={styles.menuBar}>
       <Image
-          src= "http://127.0.0.1:5501/frontend/public/logo.svg"
+          src= "http://127.0.0.1:5501/frontend/public/KoreaDistrictHeatingGroup_WhiteLogo.svg"
           alt="Logo"
           width={100}
           height={50}  
+          style={{ width: "10%", height: "100%" }} // CSS for responsive scaling
         />
         {menuItems.map((item) => (
           <div
