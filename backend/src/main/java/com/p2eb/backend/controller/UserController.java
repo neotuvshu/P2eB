@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import com.p2eb.backend.dto.UpdateUserRequest;
 import com.p2eb.backend.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,17 +17,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Хэрэглэгчийн мэдээллийг шинэчлэх метод
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
-        // userService-ийн updateUser() методуудыг дуудаж, үр дүнг буцаана
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody UpdateUserRequest updateUserRequest) {
         return userService.updateUser(id, updateUserRequest);
     }
 
-    // Хэрэглэгчийн мэдээллийг устгах метод
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        // userService-ийн deleteUser() методуудыг дуудаж, үр дүнг буцаана
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
         return userService.deleteUser(id);
     }
 }

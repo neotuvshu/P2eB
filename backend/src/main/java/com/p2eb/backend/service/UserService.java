@@ -14,8 +14,8 @@ public class UserService {
     private UserRepository userRepository;
 
     // Хэрэглэгчийн мэдээллийг шинэчлэх метод
-    public ResponseEntity<?> updateUser(Long id, UpdateUserRequest updateUserRequest) {
-        User existingUser = userRepository.findById(id).orElse(null);
+    public ResponseEntity<?> updateUser(String id, UpdateUserRequest updateUserRequest) {
+        User existingUser = userRepository.findById(id).orElse(null); 
         if (existingUser == null) {
             return ResponseEntity.badRequest().body("Хэрэглэгч олдсонгүй");
         }
@@ -25,7 +25,7 @@ public class UserService {
     }
 
     // Хэрэглэгчийн мэдээллийг устгах метод
-    public ResponseEntity<?> deleteUser(Long id) {
+    public ResponseEntity<?> deleteUser(String id) {
         if (!userRepository.existsById(id)) {
             return ResponseEntity.badRequest().body("Хэрэглэгч олдсонгүй");
         }
