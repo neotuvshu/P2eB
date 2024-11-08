@@ -13,6 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    // Хэрэглэгчийн мэдээллийг шинэчлэх метод
     public ResponseEntity<?> updateUser(Long id, UpdateUserRequest updateUserRequest) {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser == null) {
@@ -23,6 +24,7 @@ public class UserService {
         return ResponseEntity.ok().body("Хэрэглэгч амжилттай шинэчлэгдлээ.");
     }
 
+    // Хэрэглэгчийн мэдээллийг устгах метод
     public ResponseEntity<?> deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
             return ResponseEntity.badRequest().body("Хэрэглэгч олдсонгүй");
